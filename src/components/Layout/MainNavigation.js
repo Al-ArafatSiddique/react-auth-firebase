@@ -1,8 +1,11 @@
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import AuthContext from '../../store/Auth-Context';
 
 import classes from './MainNavigation.module.css';
 
 const MainNavigation = () => {
+  const authCtx = useContext(AuthContext);
   return (
     <header className={classes.header}>
       <Link to='/'>
@@ -10,15 +13,15 @@ const MainNavigation = () => {
       </Link>
       <nav>
         <ul>
-          <li>
+          {!authCtx.token && <li>
             <Link to='/auth'>Login</Link>
-          </li>
-          <li>
+          </li>}
+          {authCtx.token && <li>
             <Link to='/profile'>Profile</Link>
-          </li>
-          <li>
+          </li>}
+         {authCtx.token &&  <li>
             <button>Logout</button>
-          </li>
+          </li>}
         </ul>
       </nav>
     </header>
